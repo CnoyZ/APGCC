@@ -26,6 +26,11 @@ model_paths = {
     'vgg16': '/mnt/191/c/torch/vgg16/vgg16-397923af.pth',
 }
 
+model_paths = {
+    'vgg16_bn': '/content/vgg16_bn-6c64b313.pth',
+    'vgg16': '/content/vgg16-397923af.pth',
+}
+
 class VGG(nn.Module):
     def __init__(self, features, num_classes=1000, init_weights=True):
         super(VGG, self).__init__()
