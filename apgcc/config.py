@@ -138,6 +138,23 @@ def cfg_merge_a2b(a, b):
 
     return b
 
+def cfg_merge_a2b(a, b):
+    """
+    Merge nested dictionary `a` into dictionary `b`.
+    """
+    if not isinstance(a, (edict, dict)) or not isinstance(b, (edict, dict)):
+        raise TypeError('Both inputs must be dictionaries.')
+
+    for k, v in a.items():
+        if k not in b:
+            print(f"Adding missing key: {k}")
+            b[k] = v
+        elif isinstance(v, (edict, dict)) and isinstance(b[k], (edict, dict)):
+            cfg_merge_a2b(v, b[k])  # 递归合并嵌套字典
+        else:
+            b[k] = v
+    return b
+
 def cfg_from_file(filename):
     import yaml
     with open(filename, 'r') as f:
